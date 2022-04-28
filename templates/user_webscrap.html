@@ -1,0 +1,25 @@
+{%extends 'index.html'%}
+{%load static%}
+{%block content%}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-lg-12 col-12 mx-auto">
+            <div class="card card-body mt-4">
+                <h6 class="mb-0">WEB SCRAPING</h6>
+                <hr class="horizontal dark my-3">
+                <label for="projectName" class="form-label">Enter URL</label>
+                <form action="{% url 'scrap' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="text" class="form-control" id="projectName" name="url">
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="submit" name="button" class="btn bg-gradient-primary m-0 ms-2">Scrap URL</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
