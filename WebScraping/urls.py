@@ -29,7 +29,12 @@ urlpatterns = [
     re_path(r'^user_webscrap/$', views.user_webscrap, name='user_webscrap'),
     re_path(r'^user_listwebscrap/$', views.user_listwebscrap, name='user_listwebscrap'),
     re_path(r'^user_ecommercescrap/$', views.user_ecommercescrap, name='user_ecommercescrap'),
-    re_path(r'^scrap/$', views.scrap, name='scrap')
+    re_path(r'^user_imbd/$', views.user_imbd, name='user_imbd'),
+    re_path(r'^scrap/$', views.scrap, name='scrap'),
+    re_path(r'^view/$',views.view,name='view'),
+    re_path(r'^user_escrap/$', views.user_escrap, name='user_escrap'),
+    re_path(r'^user_eview/$', views.user_eview, name='user_eview'),
+
 
 
 ]
