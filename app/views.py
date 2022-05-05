@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -14,7 +15,51 @@ from bs4 import BeautifulSoup
 # Create your views here.
 
 
-def index(request):
+def login(request):
+    if request.method == 'POST':
+        username  = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(username=username,password=password)
+        if user is not None:
+            request.session['Adm_id'] = user.id
+            return redirect( 'admin_home')
+
+        elif user_registration.objects.filter(email=request.POST['email'], password=request.POST['password']).exists():
+            users=user_registration.objects.get(email=request.POST['email'], password=request.POST['password'])
+            request.session['u_id'] = users
+            request.session['username'] = users.fullname
+            request.session['u_id'] = users.id 
+            users=user_registration.objects.filter(id= users.id)          
+            return render(request,'user_home.html',{'users':users})
+    return render(request, 'login.html')
+
+
+
+def register(request):
+    if request.method == 'POST':
+        u=user_registration()
+        u.fullname = request.POST['name']
+        u.username = request.POST['username']
+        u.email = request.POST['email']
+        u.password = request.POST['password']
+        u.photo = request.FILES['photo']
+        
+        u.save()
+        
+        return render(request, 'login.html')
+
+    return render(request, 'register.html')
+
+# ============ Admin Module ======================
+def admin_index(request):
+    return render(request, 'admin_index.html')
+def admin_home(request):
+    return render(request, 'admin_home.html')
+
+
+
+
+def user_index(request):
     return render(request, 'user_index.html')
 
 # ============ User Module ======================

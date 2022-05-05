@@ -21,11 +21,19 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^index/$', views.index,name='index'),
+    re_path(r'^$', views.login,name='login'),
+    re_path(r'^register$', views.register,name='register'),
+
+
+#============ Admin Module ======================
+    re_path(r'^admin_index/$', views.admin_index,name='admin_index'),
+    re_path(r'^admin_home/$', views.admin_home,name='admin_home'),
+
+
 
 #============ User Module ======================
-
-    re_path(r'^$', views.user_home, name='user_home'),
+    re_path(r'^user_index/$', views.user_index, name='user_index'),
+    re_path(r'^user_home/$', views.user_home, name='user_home'),
     re_path(r'^user_webscrap/$', views.user_webscrap, name='user_webscrap'),
     re_path(r'^user_listwebscrap/$', views.user_listwebscrap, name='user_listwebscrap'),
     re_path(r'^user_ecommercescrap/$', views.user_ecommercescrap, name='user_ecommercescrap'),
