@@ -26,12 +26,19 @@ urlpatterns = [
 
 
 #============ Admin Module ======================
+    re_path(r'^admin_logout/$', views.admin_logout,name='admin_logout'),
     re_path(r'^admin_index/$', views.admin_index,name='admin_index'),
     re_path(r'^admin_home/$', views.admin_home,name='admin_home'),
+    re_path(r'^admin_user/$', views.admin_user,name='admin_user'),
+    re_path(r'^admin_user_delete/(?P<id>\d+)/$', views.admin_user_delete,name='admin_user_delete'),
+
+
 
 
 
 #============ User Module ======================
+    re_path(r'^user_logout/$', views.user_logout,name='user_logout'),
+
     re_path(r'^user_index/$', views.user_index, name='user_index'),
     re_path(r'^user_home/$', views.user_home, name='user_home'),
     re_path(r'^user_webscrap/$', views.user_webscrap, name='user_webscrap'),

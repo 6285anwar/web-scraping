@@ -4,6 +4,7 @@
 <html lang="en">
 
 <head>
+ 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
@@ -28,15 +29,15 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="./assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
 </head>
-
+{% for i in users %}
 <body class="g-sidenav-show   bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
-        <img src="{% static 'assets/img/team-3.jpg' %}" class="navbar-brand-img h-100 rounded-circle" alt="main_logo">
-        <span class="ms-1 font-weight-bold">Name</span>
+        <img src="{{i.photo.url}}" class="navbar-brand-img h-100 rounded-circle" alt="main_logo">
+        <span class="ms-1 font-weight-bold">{{i.fullname}}</span>
       </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -104,7 +105,7 @@
           </div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-white font-weight-bold px-1">
+              <a href="{% url 'user_logout' %}" class="nav-link text-white font-weight-bold px-1">
                 <i class="fa fa-sign-out me-sm-1"></i>
                 <span class="d-sm-inline d-none">Logout</span>
               </a>
@@ -137,6 +138,7 @@
         </div>
       </div>
     </nav>
+    {% endfor %}
     <!-- End Navbar -->
     <div class="container-fluid py-4">
         {%block content%} {%endblock%}
@@ -170,6 +172,7 @@
 
     </div>
   </div>
+  
   <!--   Core JS Files   -->
  
 

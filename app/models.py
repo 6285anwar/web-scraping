@@ -7,6 +7,7 @@ class user_registration(models.Model):
     username = models.CharField(max_length=240, null=True)
     email = models.EmailField(max_length=240, null=True)
     password = models.CharField(max_length=240, null=True)
+    joiningdate = models.DateField(auto_now_add=False, auto_now=False,  null=True, blank=True)
     photo = models.FileField(upload_to='images/', null=True, blank=True)
     
     

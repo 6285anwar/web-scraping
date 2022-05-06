@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from datetime import datetime,date,timedelta
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -43,6 +44,7 @@ def register(request):
         u.email = request.POST['email']
         u.password = request.POST['password']
         u.photo = request.FILES['photo']
+        u.joiningdate = datetime.now()
         
         u.save()
         
@@ -51,19 +53,49 @@ def register(request):
     return render(request, 'register.html')
 
 # ============ Admin Module ======================
+def admin_logout(request):
+    if 'Adm_id' in request.session:  
+        request.session.flush()
+        return redirect('/')
+    else:
+        return redirect('/')
+            
+
+
 def admin_index(request):
     return render(request, 'admin_index.html')
 def admin_home(request):
-    return render(request, 'admin_home.html')
+    user=user_registration.objects.count()
+   
+    return render(request, 'admin_home.html',{'user':user})
+
+def admin_user(request):
+    user=user_registration.objects.all()
+    return render(request, 'admin_user.html',{'user':user})
+
+def admin_user_delete(request, id):
+    user = user_registration.objects.get(id=id)
+    user.delete()
+    return redirect('admin_user')
 
 
 
 
-def user_index(request):
-    return render(request, 'user_index.html')
 
 # ============ User Module ======================
+def user_logout(request):
+    if 'u_id' in request.session:  
+        request.session.flush()
+        return redirect('/')
+    else:
+        return redirect('/')
 
+def user_index(request):
+    if request.session.has_key('u_id'):
+        u_id = request.session['u_id']
+ 
+    users = user_registration.objects.filter(id=u_id)
+    return render(request, 'user_index.html',{'users':users})
 
 def user_home(request):
     return render(request, 'user_home.html')
