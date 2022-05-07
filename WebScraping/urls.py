@@ -30,6 +30,8 @@ urlpatterns = [
     re_path(r'^admin_index/$', views.admin_index,name='admin_index'),
     re_path(r'^admin_home/$', views.admin_home,name='admin_home'),
     re_path(r'^admin_user/$', views.admin_user,name='admin_user'),
+    re_path(r'^admin_userscraphistory/$', views.admin_userscraphistory,name='admin_userscraphistory'),
+
     re_path(r'^admin_user_delete/(?P<id>\d+)/$', views.admin_user_delete,name='admin_user_delete'),
 
 
@@ -40,7 +42,12 @@ urlpatterns = [
     re_path(r'^user_logout/$', views.user_logout,name='user_logout'),
 
     re_path(r'^user_index/$', views.user_index, name='user_index'),
+    
     re_path(r'^user_home/$', views.user_home, name='user_home'),
+    re_path(r'^user_scrapsite/$', views.user_scrapsite, name='user_scrapsite'),
+    re_path(r'^user_scrapsitedata/$', views.user_scrapsitedata, name='user_scrapsitedata'),
+
+
     re_path(r'^user_webscrap/$', views.user_webscrap, name='user_webscrap'),
     re_path(r'^user_listwebscrap/$', views.user_listwebscrap, name='user_listwebscrap'),
     re_path(r'^user_ecommercescrap/$', views.user_ecommercescrap, name='user_ecommercescrap'),

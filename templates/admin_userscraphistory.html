@@ -1,0 +1,51 @@
+{%extends 'admin_index.html'%}
+{%load static%}
+{%block content%}
+
+<div class="card">
+    <div class="table-responsive">
+      <table class="table align-items-center mb-0">
+        <thead>
+          <tr>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">History</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date</th>
+            <!-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Version</th> -->
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+            <th class="text-secondary opacity-7"></th>
+          </tr>
+        </thead>
+        <tbody>
+           {% for i in history %}
+            <td>
+              <div class="d-flex px-2 py-1">
+                
+                <div class="d-flex flex-column justify-content-center">
+                  <h6 class="mb-0 text-xs">{{i.user.fullname}}</h6>
+                  
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="text-xs font-weight-bold mb-0">{{i.History}}</p>
+             
+            </td>
+           
+            <td class="align-middle text-center">
+              <span class="text-secondary text-xs font-weight-bold">{{i.date}}</span>
+            </td>
+            
+            <td class="align-middle">
+              <a href="" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                <button type="button" class="btn btn-danger btn-sm">Delete</button>
+              </a>
+            </td>
+          </tr>
+  
+  
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+    {% endblock %}

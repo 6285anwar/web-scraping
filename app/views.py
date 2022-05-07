@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from datetime import datetime,date,timedelta
+from datetime import datetime, date, timedelta
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -13,65 +13,76 @@ import requests
 from bs4 import BeautifulSoup
 
 
+from django.shortcuts import render, HttpResponse
+import wikipedia
+
 # Create your views here.
 
 
 def login(request):
     if request.method == 'POST':
-        username  = request.POST['email']
+        username = request.POST['email']
         password = request.POST['password']
-        user = authenticate(username=username,password=password)
+        user = authenticate(username=username, password=password)
         if user is not None:
             request.session['Adm_id'] = user.id
-            return redirect( 'admin_home')
+            return redirect('admin_home')
 
         elif user_registration.objects.filter(email=request.POST['email'], password=request.POST['password']).exists():
-            users=user_registration.objects.get(email=request.POST['email'], password=request.POST['password'])
+            users = user_registration.objects.get(
+                email=request.POST['email'], password=request.POST['password'])
             request.session['u_id'] = users
             request.session['username'] = users.fullname
-            request.session['u_id'] = users.id 
-            users=user_registration.objects.filter(id= users.id)          
-            return render(request,'user_home.html',{'users':users})
+            request.session['u_id'] = users.id
+            users = user_registration.objects.filter(id=users.id)
+            return render(request, 'user_home.html', {'users': users})
     return render(request, 'login.html')
-
 
 
 def register(request):
     if request.method == 'POST':
-        u=user_registration()
+        u = user_registration()
         u.fullname = request.POST['name']
         u.username = request.POST['username']
         u.email = request.POST['email']
         u.password = request.POST['password']
         u.photo = request.FILES['photo']
         u.joiningdate = datetime.now()
-        
+
         u.save()
-        
+
         return render(request, 'login.html')
 
     return render(request, 'register.html')
 
 # ============ Admin Module ======================
+
+
 def admin_logout(request):
-    if 'Adm_id' in request.session:  
+    if 'Adm_id' in request.session:
         request.session.flush()
         return redirect('/')
     else:
         return redirect('/')
-            
 
 
 def admin_index(request):
     return render(request, 'admin_index.html')
+
+
 def admin_home(request):
-    user=user_registration.objects.count()
-   
-    return render(request, 'admin_home.html',{'user':user})
+    user = user_registration.objects.count()
+
+    return render(request, 'admin_home.html', {'user': user})
+
 
 def admin_user(request):
-    user=user_registration.objects.all()
-    return render(request, 'admin_user.html',{'user':user})
+    user = user_registration.objects.all()
+    return render(request, 'admin_user.html', {'user': user})
+
+def admin_userscraphistory(request):
+    history=user_scrapdatahistory.objects.all()
+    return render(request, 'admin_userscraphistory.html',{'history':history})
 
 def admin_user_delete(request, id):
     user = user_registration.objects.get(id=id)
@@ -79,26 +90,57 @@ def admin_user_delete(request, id):
     return redirect('admin_user')
 
 
-
-
-
 # ============ User Module ======================
 def user_logout(request):
-    if 'u_id' in request.session:  
+    if 'u_id' in request.session:
         request.session.flush()
         return redirect('/')
     else:
         return redirect('/')
 
+
 def user_index(request):
     if request.session.has_key('u_id'):
         u_id = request.session['u_id']
- 
+
     users = user_registration.objects.filter(id=u_id)
-    return render(request, 'user_index.html',{'users':users})
+    return render(request, 'user_index.html', {'users': users})
+
 
 def user_home(request):
     return render(request, 'user_home.html')
+
+
+def user_scrapsite(request):
+    if 'u_id' in request.session:
+        if request.session.has_key('u_id'):
+            u_id = request.session['u_id']
+        else:
+            variable="dummy"  
+        users = user_registration.objects.filter(id=u_id)
+
+        if request.method == "POST":
+            search = request.POST['search']
+            h=user_scrapdatahistory()
+            h.History=search
+            h.user_id=u_id
+            h.date=datetime.now()
+            h.save()
+            try:
+                result = wikipedia.summary(search, sentences=10)
+            except:
+                return HttpResponse("Wrong Input")
+            return render(request, "user_scrapsitedata.html", {"result": result,'users':users})
+        return render(request, 'user_scrapsite.html', {'users':users})
+    else:
+        return redirect('/')
+
+def user_scrapsitedata(request):
+    if request.session.has_key('u_id'):
+        u_id = request.session['u_id']
+
+    users = user_registration.objects.filter(id=u_id)
+    return render(request, 'user_scrapsitedata.html', {'users':users})
 
 
 def user_ecommercescrap(request):
@@ -111,8 +153,11 @@ def user_ecommercescrap(request):
 
 def user_listwebscrap(request):
     return render(request, 'user_listwebscrap.html')
+
+
 def user_imbd(request):
     return render(request, 'user_imbd.html')
+
 
 def scrap(request):
     if request.method == "POST":
@@ -188,10 +233,10 @@ def user_webscrap(request):
         return render(request, "user_webscrap.html", {'movies': movies})
 
 
-
 def user_escrap(request):
     return render(request, "user_escrap.html")
-    
+
+
 def user_eview(request):
     if request.method == "POST":
         url = request.POST['url']
@@ -199,7 +244,7 @@ def user_eview(request):
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         table = soup.find('div',  {'class': '_1YokD2 _3Mn1Gg'})
-        rows = table.find_all('div',  {'class': '_4rR01T'}) 
+        rows = table.find_all('div',  {'class': '_4rR01T'})
         movies = []
         for row in rows:
             image = row.find('img')
