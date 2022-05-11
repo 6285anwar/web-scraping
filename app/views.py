@@ -90,6 +90,23 @@ def admin_user_delete(request, id):
     return redirect('admin_user')
 
 
+def admin_datas(request):
+    data=admin_data.objects.all()
+    return render(request, 'admin_datas.html',{'data':data})
+
+
+def admin_data_add(request):
+    if request.method == 'POST':
+        a=admin_data()
+        a.Heading = request.POST['head']
+        a.Describe = request.POST['desc']
+        a.url = request.POST['link']
+        a.filez = request.FILES['fil']
+        a.save()
+
+        return redirect('admin_datas')
+    return render(request, 'admin_data_add.html')
+
 # ============ User Module ======================
 def user_logout(request):
     if 'u_id' in request.session:
@@ -141,6 +158,14 @@ def user_scrapsitedata(request):
 
     users = user_registration.objects.filter(id=u_id)
     return render(request, 'user_scrapsitedata.html', {'users':users})
+
+def user_viewdata(request):
+    if request.session.has_key('u_id'):
+        u_id = request.session['u_id']
+
+    users = user_registration.objects.filter(id=u_id)
+    data=admin_data.objects.all()
+    return render(request, 'user_viewdata.html', {'users':users,'data':data})
 
 
 def user_ecommercescrap(request):

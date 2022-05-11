@@ -1,3 +1,5 @@
+from nturl2path import url2pathname
+from pydoc import describe
 from django.db import models
 
 # Create your models here.
@@ -14,3 +16,10 @@ class user_scrapdatahistory(models.Model):
     user = models.ForeignKey(user_registration, on_delete=models.DO_NOTHING,null=True,blank=True)
     History = models.CharField(max_length=240, null=True)
     date = models.DateField(auto_now_add=False, auto_now=False,  null=True, blank=True)
+
+class admin_data(models.Model):
+    Heading = models.CharField(max_length=240, null=True)
+    Describe = models.CharField(max_length=2404, null=True)
+    url = models.CharField(max_length=240, null=True)
+    filez = models.FileField(upload_to='images/', null=True, blank=True)
+
