@@ -1,0 +1,40 @@
+{%extends 'admin_index.html'%}
+{%load static%}
+{%block content%}
+{% for i in data %}
+<div class="col-lg-12 text-end">
+    <a href="{% url 'admin_editviewdata' i.id %}">
+        <button class="btn btn-icon btn-3 btn-warning" type="button">
+            <span class="btn-inner--icon"><i class="ni ni-settings"></i></span>
+            <span class="btn-inner--text">Edit Data</span>
+        </button>
+    </a>
+</div>
+
+
+<div class="col-lg-12">
+    <div class="card">
+        
+        <div class="col-lg-12 text-start m-3">
+            <div class="text-center">
+                <h3>{{i.Heading}}</h3>
+            </div>
+            <h5>{{i.Describe}}</h5>
+            <u style="color:rgb(21, 0, 255) ;">
+                <h5 style="color:rgb(21, 0, 255) ; cursor: pointer;">{{i.url}}</h5>
+            </u>
+            <div class="mb-3 text-center">
+                <img src="{{i.filez.url}}" class="img-fluid border-radius-lg" alt="Responsive image">
+
+            </div>
+        </div>
+       
+
+        {% endfor %}
+
+    </div>
+</div>
+
+
+
+{% endblock %}

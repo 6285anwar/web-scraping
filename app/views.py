@@ -107,6 +107,46 @@ def admin_data_add(request):
         return redirect('admin_datas')
     return render(request, 'admin_data_add.html')
 
+def admin_viewdata(request,id):
+    data=admin_data.objects.filter(id=id)
+    return render(request, 'admin_viewdata.html',{'data':data})
+
+def admin_editviewdata(request,id):
+    data=admin_data.objects.filter(id=id)
+    if request.method == 'POST':
+        a=admin_data.objects.get(id=id)
+        a.Heading = request.POST['head']
+        a.Describe = request.POST['desc']
+        a.url = request.POST['link']
+        av=admin_data.objects.get(id=id)
+        try:
+            av.filez = request.FILES['fil']
+            av.save()
+
+        except:
+            a.save()
+
+        return redirect('admin_datas')
+
+    return render(request, 'admin_editviewdata.html',{'data':data})
+
+def admin_deletedata(request, id):
+    data = admin_data.objects.get(id=id)
+    data.delete()
+    return redirect('admin_datas')
+
+
+    
+
+
+
+
+
+
+
+
+
+
 # ============ User Module ======================
 def user_logout(request):
     if 'u_id' in request.session:
@@ -172,12 +212,26 @@ def user_ecommercescrap(request):
     return render(request, 'user_ecommercescrap.html')
 
 
+
+def user_datascrap(request):
+    if request.session.has_key('u_id'):
+        u_id = request.session['u_id']
+
+    users = user_registration.objects.filter(id=u_id)
+    return render(request, 'user_datascrap.html',{'users':users})
+
+
+
+
+
+
+
 # def user_webscrap(request):
 #     return render(request, 'user_webscrap.html')
 
 
 def user_listwebscrap(request):
-    return render(request, 'user_listwebscrap.html')
+    return render(request, 'user_listwebscrap.html',)
 
 
 def user_imbd(request):

@@ -19,14 +19,14 @@
             </div>
             <div class="card-body text-lg-left text-center pt-0">
                 <h5>{{i.Describe}}</h5>
-                <a href="javascript:;" class="btn btn-icon bg-gradient-primary  mt-3 mb-0">
+                <a href="{% url 'admin_viewdata' i.id %}" class="btn btn-icon bg-gradient-primary  mt-3 mb-0">
                     View
                     <i class="fas fa-file ms-1" aria-hidden="true"></i>
                 </a>
                 &nbsp;
                 &nbsp;
                 &nbsp;
-                <a href="javascript:;" class="btn btn-icon bg-gradient-danger  mt-3 mb-0">
+                <a href="{% url 'admin_deletedata' i.id %}" class="btn btn-icon bg-gradient-danger  mt-3 mb-0">
                     Delete
                     <i class="fas fa-trash ms-1" aria-hidden="true"></i>
                 </a>

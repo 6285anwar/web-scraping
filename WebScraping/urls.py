@@ -35,6 +35,14 @@ urlpatterns = [
     re_path(r'^admin_user_delete/(?P<id>\d+)/$', views.admin_user_delete,name='admin_user_delete'),
     re_path(r'^admin_datas/$', views.admin_datas,name='admin_datas'),
     re_path(r'^admin_data_add/$', views.admin_data_add,name='admin_data_add'),
+    re_path(r'^admin_viewdata/(?P<id>\d+)/$', views.admin_viewdata, name='admin_viewdata'),
+
+    re_path(r'^admin_editviewdata/(?P<id>\d+)/$', views.admin_editviewdata, name='admin_editviewdata'),
+    re_path(r'^admin_deletedata/(?P<id>\d+)/$', views.admin_deletedata,name='admin_deletedata'),
+
+
+
+
 
 
 
@@ -52,6 +60,7 @@ urlpatterns = [
     re_path(r'^user_scrapsitedata/$', views.user_scrapsitedata, name='user_scrapsitedata'),
 
     re_path(r'^user_viewdata/$', views.user_viewdata, name='user_viewdata'),
+    re_path(r'^user_datascrap/$', views.user_datascrap,name='user_datascrap'),
 
 
 
