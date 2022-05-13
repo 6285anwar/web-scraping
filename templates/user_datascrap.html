@@ -5,7 +5,20 @@
 
 <div class="col-lg-12">
     <div class="card">
-        avahjsd
+        <div class="col-lg-12 col-12 mx-auto">
+            <div class="card card-body mt-4">
+                <h6 class="mb-0">Scrap Word</h6>
+                <hr class="horizontal dark my-3">
+                <form method="post" action="{% url 'user_scrapword'%}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                   
+                    <input type="text" class="form-control" id="projectName" name="search">
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="submit" name="button" class="btn bg-gradient-primary m-0 ms-2">Scrap Word</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
     </div>
 </div>

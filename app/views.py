@@ -165,7 +165,11 @@ def user_index(request):
 
 
 def user_home(request):
-    return render(request, 'user_home.html')
+    if request.session.has_key('u_id'):
+        u_id = request.session['u_id']
+
+    users = user_registration.objects.filter(id=u_id)
+    return render(request, 'user_home.html', {'users': users})
 
 
 def user_scrapsite(request):
@@ -221,7 +225,17 @@ def user_datascrap(request):
     return render(request, 'user_datascrap.html',{'users':users})
 
 
+def user_scrapword(request):
+    if request.session.has_key('u_id'):
+        u_id = request.session['u_id']
 
+    users = user_registration.objects.filter(id=u_id)
+    if request.method == "POST":
+        q = request.POST['search']
+        word = admin_data.objects.filter(Describe__icontains=q)
+    else:
+        return HttpResponse("Wrong Input")
+    return render(request, 'user_view1.html',{'users':users,'word':word})
 
 
 
