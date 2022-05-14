@@ -22,5 +22,48 @@
 
     </div>
 </div>
+<br>
+<div class="col-lg-12">
+    <div class="card">
+        <div class="col-lg-12 col-12 mx-auto">
+            <div class="card card-body mt-4">
+                <h6 class="mb-0">Scrap items</h6>
+                <hr class="horizontal dark my-3">
+                <form method="post" action="{% url 'user_scrapitem'%}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                   
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Heading" name="head" >
+                        <label class="form-check-label" for="flexCheckDefault">
+                         Heading
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Describe" name="desc" >
+                        <label class="form-check-label" for="flexCheckDefault">
+                          Describe
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="url" name="url" >
+                        <label class="form-check-label" for="flexCheckDefault">
+                          Url's
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="filez" name="file" >
+                        <label class="form-check-label" for="flexCheckDefault">
+                          File's
+                        </label>
+                      </div>
+                      
+                        <button type="submit" name="button" class="btn bg-gradient-primary m-0 ms-2">Scrap item</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 {% endblock %}

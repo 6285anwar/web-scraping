@@ -74,6 +74,9 @@ urlpatterns = [
     re_path(r'^user_eview/$', views.user_eview, name='user_eview'),
 
     re_path(r'^user_scrapword/$', views.user_scrapword, name='user_scrapword'),
+    re_path(r'^user_error/$', views.user_error, name='user_error'),
+    re_path(r'^user_scrapitem/$', views.user_scrapitem, name='user_scrapitem'),
+
 
 
 

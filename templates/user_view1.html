@@ -2,17 +2,84 @@
 {%load static%}
 {%block content%}
 
+<div class="col-lg-12 text-start">
+    <a href="{% url 'user_datascrap' %}">
+        <button class="btn btn-icon btn-3 btn-success" type="button">
+            <span class="btn-inner--icon"><i class="ni ni-bold-left"></i></span>
+            <span class="btn-inner--text">Back</span>
+        </button>
+    </a>
+</div>
+<div class="col-lg-12">
+    <div class="card">
+
+        {% for i in word %}
+        <div class="col-lg-12 text-start m-3">
+            <div class="text-center">
+
+            </div>
+            <h5>{{i.Describe}}</h5>
+
+        </div>
+
+
+        {% endfor %}
+    </div>
+</div>
+
 
 <div class="col-lg-12">
     <div class="card">
-        <div class="card">
-            
-       {% for i in word %}
-       <h4>{{i.Describe}}</h4>
-       {% endfor %}
-    </div>
+        {% for j in datavalue %}
+
+
+        <h3>{{j|join:" , "}}</h3>
+        <hr>
+
+        {% endfor %}
 
     </div>
 </div>
+
+<br>
+<div class="col-lg-12">
+    <div class="card">
+        {% for a in datavalue2 %}
+
+
+        <h4>{{a|join:" , "}}</h4>
+        <hr>
+
+        {% endfor %}
+    </div>
+</div>
+<br>
+<div class="col-lg-12">
+    <div class="card">
+{% for c in datavalue4 %}
+
+
+<h5>{{c|join:" , "}}</h5>
+<hr>
+
+{% endfor %}
+</div>
+</div>
+
+<br>
+<div class="col-lg-12">
+    <div class="card">
+
+{% for b in datavalue3 %}
+
+
+<h6>{{b|join:" , "}}</h6>
+<img src="{{b.filez.url}}" alt="">
+<hr>
+
+{% endfor %}
+</div>
+</div>
+
 
 {% endblock %}

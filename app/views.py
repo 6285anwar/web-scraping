@@ -234,8 +234,126 @@ def user_scrapword(request):
         q = request.POST['search']
         word = admin_data.objects.filter(Describe__icontains=q)
     else:
-        return HttpResponse("Wrong Input")
+        return redirect('user_error')
     return render(request, 'user_view1.html',{'users':users,'word':word})
+
+def user_error(request):
+    if request.session.has_key('u_id'):
+        u_id = request.session['u_id']
+
+    users = user_registration.objects.filter(id=u_id)
+    return render(request, 'user_error.html',{'users':users})
+
+
+def user_scrapitem(request):
+    if request.session.has_key('u_id'):
+        u_id = request.session['u_id']
+
+    users = user_registration.objects.filter(id=u_id)
+    if request.method == "POST":
+        h=request.POST.get('head')
+        d=request.POST.get('desc')
+        u=request.POST.get('url')
+        f=request.POST.get('file')
+
+        if h == 'Heading' and d == 'Describe' and f == 'filez' and u == 'url':
+            datavalue= admin_data.objects.values_list('Heading')
+            datavalue2= admin_data.objects.values_list('Describe')
+            datavalue3 = admin_data.objects.values_list('filez')
+            datavalue4 = admin_data.objects.values_list('url')
+
+            return render(request, 'user_view1.html',{'users':users,'datavalue':datavalue,'datavalue2':datavalue2,'datavalue3':datavalue3,'datavalue4':datavalue4})
+
+        elif h == 'Heading' and d == 'Describe' and f == 'filez':
+            datavalue= admin_data.objects.values_list('Heading')
+            datavalue2= admin_data.objects.values_list('Describe')
+            datavalue3 = admin_data.objects.values_list('filez')
+            
+            return render(request, 'user_view1.html',{'users':users,'datavalue':datavalue,'datavalue2':datavalue2,'datavalue3':datavalue3})
+
+        elif h == 'Heading' and d == 'Describe' and u == 'url':
+            datavalue= admin_data.objects.values_list('Heading')
+            datavalue2= admin_data.objects.values_list('Describe')
+            datavalue4 = admin_data.objects.values_list('url')
+
+            return render(request, 'user_view1.html',{'users':users,'datavalue':datavalue,'datavalue2':datavalue2,'datavalue4':datavalue4})
+
+        elif h == 'Heading'  and f == 'filez' and u == 'url':
+            datavalue= admin_data.objects.values_list('Heading')
+            
+            datavalue3 = admin_data.objects.values_list('filez')
+            datavalue4 = admin_data.objects.values_list('url')
+
+            return render(request, 'user_view1.html',{'users':users,'datavalue':datavalue,'datavalue3':datavalue3,'datavalue4':datavalue4})
+
+        elif d == 'Describe' and f == 'filez' and u == 'url':
+          
+            datavalue2= admin_data.objects.values_list('Describe')
+            datavalue3 = admin_data.objects.values_list('filez')
+            datavalue4 = admin_data.objects.values_list('url')
+
+            return render(request, 'user_view1.html',{'users':users,'datavalue2':datavalue2,'datavalue3':datavalue3,'datavalue4':datavalue4})
+
+        elif h == 'Heading' and d == 'Describe' :
+            datavalue= admin_data.objects.values_list('Heading')
+            datavalue2= admin_data.objects.values_list('Describe')
+
+            return render(request, 'user_view1.html',{'users':users,'datavalue':datavalue,'datavalue2':datavalue2})
+
+        elif h == 'Heading' and u == 'url':
+            datavalue= admin_data.objects.values_list('Heading')
+            datavalue4 = admin_data.objects.values_list('url')
+
+            return render(request, 'user_view1.html',{'users':users,'datavalue':datavalue,'datavalue4':datavalue4})
+
+        elif h == 'Heading'  and f == 'filez' :
+            datavalue= admin_data.objects.values_list('Heading')
+            datavalue3 = admin_data.objects.values_list('filez')
+        
+            return render(request, 'user_view1.html',{'users':users,'datavalue':datavalue,'datavalue3':datavalue3})
+
+        elif d == 'Describe' and u == 'url':
+          
+            datavalue2= admin_data.objects.values_list('Describe')
+            datavalue4 = admin_data.objects.values_list('url')
+
+            return render(request, 'user_view1.html',{'users':users,'datavalue2':datavalue2,'datavalue4':datavalue4})
+
+        elif d == 'Describe' and f == 'filez' :
+            datavalue2= admin_data.objects.values_list('Describe')
+            datavalue3 = admin_data.objects.values_list('filez')
+
+            return render(request, 'user_view1.html',{'users':users,'datavalue2':datavalue2,'datavalue3':datavalue3})
+
+        elif f == 'filez' and u == 'url':
+            datavalue3 = admin_data.objects.values_list('filez')
+            datavalue4 = admin_data.objects.values_list('url')
+
+            return render(request, 'user_view1.html',{'users':users,'datavalue3':datavalue3,'datavalue4':datavalue4})
+
+
+        elif h == 'Heading' :
+            datavalue= admin_data.objects.values_list('Heading')
+            return render(request, 'user_view1.html',{'users':users,'datavalue':datavalue})
+
+        elif d == 'Describe':
+            datavalue2= admin_data.objects.values_list('Describe')
+            return render(request, 'user_view1.html',{'users':users,'datavalue2':datavalue2})
+
+        elif u == 'url':
+            datavalue4 = admin_data.objects.values_list('url')
+            return render(request, 'user_view1.html',{'users':users,'datavalue4':datavalue4})
+
+        elif  f == 'filez':
+            datavalue3 = admin_data.objects.values_list('filez')
+            return render(request, 'user_view1.html',{'users':users,'datavalue3':datavalue3})
+        
+
+        else :
+            return redirect ('user_datascrap')
+
+
+
 
 
 
